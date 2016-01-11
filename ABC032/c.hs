@@ -8,14 +8,14 @@ main = do
 solve :: [Int] -> Int -> Int
 solve xs k
   | 0 `elem` xs = length xs
-  | otherwise = maximum $ multAll xs [] 0 k
+  | otherwise = calcMaxLen xs [] 0 k
 
-multAll :: [Int] -> [Int] -> Int -> Int -> [Int]
-multAll [] _ _ _ = []
-multAll (x:xs) a maxLength k
-  | k < x     = multAll xs [] maxLength k
-  | xam <= k   = length xa : multAll xs xa maxl k
-  | otherwise = length a : multAll (x:xs) (pop a) maxLength k
+calcMaxLen :: [Int] -> [Int] -> Int -> Int -> Int
+calcMaxLen [] _ _ _ = 0
+calcMaxLen (x:xs) a maxLength k
+  | k < x     = calcMaxLen xs [] maxLength k
+  | xam <= k  = max (length xa) $ calcMaxLen xs xa maxl k
+  | otherwise = calcMaxLen (x:xs) (pop a) maxLength k
   where xa = (x:a)
         maxl = max maxLength (length xa)
         xam = multi xa
