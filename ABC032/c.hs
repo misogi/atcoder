@@ -3,19 +3,19 @@ import Control.Monad
 main = do
   [n, k] <- readInts
   nums <- replicateM n readInt
-  let a = multAll nums [] 0 k
-  putStrLn $ show $ maxLength a
+  putStrLn $ show $ solve nums k
 
-maxLength :: [[Int]] -> Int
-maxLength [] = 0
-maxLength a = maximum $ map length a
+solve :: [Int] -> Int -> Int
+solve xs k
+  | 0 `elem` xs = length xs
+  | otherwise = maximum $ multAll xs [] 0 k
 
-multAll :: [Int] -> [Int] -> Int -> Int -> [[Int]]
+multAll :: [Int] -> [Int] -> Int -> Int -> [Int]
 multAll [] _ _ _ = []
 multAll (x:xs) a maxLength k
   | k < x     = multAll xs [] maxLength k
-  | xam < k   = xa : multAll xs xa maxl k
-  | otherwise = a : multAll (x:xs) (pop a) maxLength k
+  | xam <= k   = length xa : multAll xs xa maxl k
+  | otherwise = length a : multAll (x:xs) (pop a) maxLength k
   where xa = (x:a)
         maxl = max maxLength (length xa)
         xam = multi xa
