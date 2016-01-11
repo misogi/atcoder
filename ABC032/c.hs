@@ -3,22 +3,28 @@ import Control.Monad
 main = do
   [n, k] <- readInts
   nums <- replicateM n readInt
-  let ans = solve nums
-  putStrLn $ show $ final ans (filterAnswer k)
+  let a = multAll nums [] 0 k
+  putStrLn $ show $ maxLength a
 
-lengthOfAns :: [[Int]] -> Int
-lengthOfAns [] = 0
-lengthOfAns xs = length $ head xs
+maxLength :: [[Int]] -> Int
+maxLength [] = 0
+maxLength a = maximum $ map length a
 
-final :: [[Int]] -> ([Int] -> Bool) -> Int
-final ans f = lengthOfAns $ filter f ans
+multAll :: [Int] -> [Int] -> Int -> Int -> [[Int]]
+multAll [] _ _ _ = []
+multAll (x:xs) a maxLength k
+  | k < x     = multAll xs [] maxLength k
+  | xam < k   = xa : multAll xs xa maxl k
+  | otherwise = a : multAll (x:xs) (pop a) maxLength k
+  where xa = (x:a)
+        maxl = max maxLength (length xa)
+        xam = multi xa
 
-filterAnswer :: Int -> [Int] -> Bool
-filterAnswer _ [] = False
-filterAnswer k d = foldl1 (*) d <= k
+pop :: [Int] -> [Int]
+pop xs = reverse $ tail $ reverse xs
 
-solve :: [Int] -> [[Int]]
-solve nums = [take len (drop start nums) | len <- [(length nums) + 1,(length nums)..1], start <- [0..((length nums) - len)]]
+multi :: [Int] -> Int
+multi = foldl1 (*)
 
 readInt :: IO Int
 readInt = readLn
