@@ -1,4 +1,5 @@
 import Control.Monad
+import Data.List
 
 main = do
   [n, k] <- readInts
@@ -21,7 +22,7 @@ calcMaxLen (x:xs) a maxLength k
         xam = multi xa
 
 multi :: [Int] -> Int
-multi = foldl1 (*)
+multi = foldl1' (*)
 
 readInt :: IO Int
 readInt = readLn
