@@ -15,13 +15,10 @@ calcMaxLen [] _ _ _ = 0
 calcMaxLen (x:xs) a maxLength k
   | k < x     = calcMaxLen xs [] maxLength k
   | xam <= k  = max (length xa) $ calcMaxLen xs xa maxl k
-  | otherwise = calcMaxLen (x:xs) (pop a) maxLength k
+  | otherwise = calcMaxLen (x:xs) (init a) maxLength k
   where xa = (x:a)
         maxl = max maxLength (length xa)
         xam = multi xa
-
-pop :: [Int] -> [Int]
-pop xs = reverse $ tail $ reverse xs
 
 multi :: [Int] -> Int
 multi = foldl1 (*)
