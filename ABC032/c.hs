@@ -1,5 +1,5 @@
 import Control.Monad
-import Data.List
+import qualified Data.Sequence as Seq
 
 main = do
   [n, k] <- readInts
@@ -9,20 +9,20 @@ main = do
 solve :: [Int] -> Int -> Int
 solve xs k
   | 0 `elem` xs = length xs
-  | otherwise = calcMaxLen xs [] 0 k
+  | otherwise = calcMaxLen xs Seq.empty 0 k
 
-calcMaxLen :: [Int] -> [Int] -> Int -> Int -> Int
+calcMaxLen :: [Int] -> Seq.Seq Int -> Int -> Int -> Int
 calcMaxLen [] _ _ _ = 0
 calcMaxLen (x:xs) a maxLength k
-  | k < x     = calcMaxLen xs [] maxLength k
-  | xam <= k  = max (length xa) $ calcMaxLen xs xa maxl k
-  | otherwise = calcMaxLen (x:xs) (init a) maxLength k
-  where xa = (x:a)
-        maxl = max maxLength (length xa)
-        xam = multi xa
-
-multi :: [Int] -> Int
-multi = foldl1' (*)
+  | k < x     = calcMaxLen xs Seq.empty maxLength k
+  | xam <= k  = max xaLen $ calcMaxLen xs xa maxl k
+  | otherwise =
+    let aHead Seq.:< aTail = Seq.viewl a
+    in calcMaxLen (x:xs) aTail maxLength k
+  where xa = (x Seq.<| a)
+        xaLen = Seq.length xa
+        maxl = max maxLength xaLen
+        xam = foldl1 (*) xa
 
 readInt :: IO Int
 readInt = readLn
