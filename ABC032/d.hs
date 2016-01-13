@@ -3,7 +3,7 @@ import Control.Monad
 main = do
   (n, maxWeight) <- readInts
   items <- replicateM n readInts
-  putStrLn $ show items
+  putStrLn $ show $ items
 
 readInts :: IO (Int, Int)
 readInts = fmap (toTupple . (map read) . words) getLine
