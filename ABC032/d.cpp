@@ -57,7 +57,7 @@ int main() {
   uint64_t ans = 0;
   for (auto fst : ms) {
     for (auto snd : second_half) {
-      if (fst.first + snd.first < w) {
+      if (fst.first + snd.first <= w) {
         uint64_t value = fst.second + snd.second;
         if (ans < value) {
           ans = value;
