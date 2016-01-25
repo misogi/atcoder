@@ -5,14 +5,15 @@
 using namespace std;
 
 int main() {
-        uint64_t n, w;
+        uint64_t n, w, v_highest = 0;
         cin >> n >> w;
         vector<uint> weights(n), values(n);
         for (auto i=0; i<n; i++) {
                 cin >> values[i] >> weights[i];
+                if(v_highest < values[i]) v_highest = values[i];
         }
 
-        if (n <= 30) {
+        if (n <= 8) {
                 map<uint64_t, uint64_t> ms, second_half;
                 int halfn = n / 2;
                 for (auto i=0; i<(1 << halfn); i++) {
@@ -68,7 +69,7 @@ int main() {
                 }
 
                 cout << ans << endl;
-        } else {
+        } else if (v_highest <= 1000) {
                 // all values are < 1000
                 int nvmax = 1001 * n;
                 vector<vector<uint64_t> > dp(n+1, vector<uint64_t>(nvmax, 1000000000 * n));
@@ -89,6 +90,24 @@ int main() {
                         if(dp[n][i] <= w && max_v < i) {
                                 max_v = i;
                         }
+                }
+
+                cout << max_v << endl;
+        } else {
+                int nwmax = w + 1;
+                vector<int64_t> dp(nwmax, 0);
+                dp[0] = 0;
+                for (auto i=0; i<n; i++) {
+                        uint wi = weights[i];
+                        uint vi = values[i];
+                        for (auto j=nwmax-1; j>=wi; j--) {
+                                dp[j] = max(dp[j], dp[j-wi] + vi);
+                        }
+                }
+
+                uint max_v = 0;
+                for (auto i=0; i<=w; i++) {
+                  if (max_v < dp[i]) max_v = dp[i];
                 }
 
                 cout << max_v << endl;
