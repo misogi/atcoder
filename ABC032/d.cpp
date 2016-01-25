@@ -112,4 +112,6 @@ int main() {
 
 		cout << dp[w] << endl;
 	}
+
+  return 0;
 }
