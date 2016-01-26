@@ -74,7 +74,7 @@ int main() {
     } else if (v_highest <= 1000) {
         // all values are < 1000
         int nvmax = 1001 * n;
-        vector<vector<uint64_t>> dp(n + 1, vector<uint64_t>(nvmax, 1000000000 * n));
+        vector<vector<uint64_t> > dp(n + 1, vector<uint64_t>(nvmax, 1000000000 * n));
         dp[0][0] = 0;
         for (int i = 1; i<n + 1; i++) {
             int vi = values[i - 1];
