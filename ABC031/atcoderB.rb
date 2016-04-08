@@ -1,6 +1,6 @@
 l, h = gets.chomp.split(' ').map(&:to_i)
 n = gets.chomp.to_i
-n.times do
+n.times do 
   work = gets.chomp.to_i
   ans = 0
   if work < l
@@ -8,5 +8,5 @@ n.times do
   elsif h < work
     ans = -1
   end
-  puts ans 
+  puts ans   
 end
