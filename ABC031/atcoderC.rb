@@ -7,7 +7,7 @@ n.times do |i|
   maxt = -9999
   n.times do |j|
     next if i == j
-    if i < j
+    if i < j 
       start = i
       e = j
     else
